@@ -1,16 +1,31 @@
-useGPU = 1; % do you have a GPU? Kilosorting 1000sec of 32chan simulated data takes 55 seconds on gtx 1080 + M2 SSD.
+useGPU = 0; %else 1  % do you have a GPU? Kilosorting 1000sec of 32chan simulated data takes 55 seconds on gtx 1080 + M2 SSD.
 
-fpath    = 'C:\DATA\Spikes\eMouse\'; % where on disk do you want the simulation? ideally and SSD...
+% <<<<<<< HEAD
+% fpath    = 'D:\DATA\Spikes\eMouse_test\'; % where on disk do you want the simulation? ideally and SSD...
+% if ~exist(fpath, 'dir'); mkdir(fpath); end
+% 
+% % This part adds paths
+% % addpath(genpath('D:\CODE\GitHub\KiloSort')) % path to kilosort folder
+% % addpath(genpath('D:\CODE\GitHub\npy-matlab')) % path to npy-matlab scripts
+% % pathToYourConfigFile = 'D:\CODE\GitHub\KiloSort\eMouse'; % for this example it's ok to leave this path inside the repo, but for your own config file you *must* put it somewhere else!  
+% 
+% addpath(genpath('C:\Users\John.Lee\Documents\GitHub\KiloSort')) % path to kilosort folder
+% addpath(genpath('C:\Users\John.Lee\Documents\GitHub\npy-matlab')) % path to npy-matlab scripts
+% pathToYourConfigFile = 'C:\Users\John.Lee\Documents\GitHub\KiloSort\eMouse'; % for this example it's ok to leave this path inside the repo, but for your own config file you *must* put it somewhere else!  
+% =======
+fpath    = 'D:\DATA\Spikes\eMouse_test\'; % where on disk do you want the simulation? ideally and SSD...
 if ~exist(fpath, 'dir'); mkdir(fpath); end
 
 % This part adds paths
 addpath(genpath('D:\CODE\GitHub\copies\KiloSort')) % path to kilosort folder
 addpath(genpath('D:\CODE\GitHub\npy-matlab')) % path to npy-matlab scripts
-pathToYourConfigFile = 'D:\CODE\GitHub\copies\KiloSort\eMouse'; % for this example it's ok to leave this path inside the repo, but for your own config file you *must* put it somewhere else!  
+% pathToYourConfigFile = 'D:\CODE\GitHub\copies\KiloSort\eMouse'; % for this example it's ok to leave this path inside the repo, but for your own config file you *must* put it somewhere else!  
+% >>>>>>> b75c1b225b20086a0a736ab03929438c76a93b5f
 
 % Run the configuration file, it builds the structure of options (ops)
-run(fullfile(pathToYourConfigFile, 'config_eMouse.m'))
+% run(fullfile(pathToYourConfigFile, 'config_eMouse.m'))
 
+run('config_eMouse.m')
 % This part makes the channel map for this simulation
 make_eMouseChannelMap(fpath); 
 
@@ -18,8 +33,12 @@ make_eMouseChannelMap(fpath);
 % function, if you want to vary the SNR or firing rates, or number of cells etc. 
 % You can vary these to make the simulated data look more like your data.
 % Currently it is set to relatively low SNR for illustration purposes in Phy. 
+
+
 make_eMouseData(fpath, useGPU); 
 %
+
+test = 1;
 % This part runs the normal Kilosort processing on the simulated data
 [rez, DATA, uproj] = preprocessData(ops); % preprocess data and extract spikes for initialization
 rez                = fitTemplates(rez, DATA, uproj);  % fit templates iteratively
@@ -33,7 +52,7 @@ rez                = fullMPMU(rez, DATA);% extract final spike times (overlappin
 benchmark_simulation(rez, fullfile(fpath, 'eMouseGroundTruth.mat'));
 
 % save python results file for Phy
-mkdir preAutoMerge
+mkdir D:\DATA\Spikes\eMouse_test\preAutoMerge
 rezToPhy(rez, [fpath,'preAutoMerge\']);
 
 fprintf('Kilosort took %2.2f seconds vs 72.77 seconds on GTX 1080 + M2 SSD \n', toc)
@@ -50,8 +69,8 @@ fprintf('Kilosort took %2.2f seconds vs 72.77 seconds on GTX 1080 + M2 SSD \n', 
 % Kilosort's AUTO merges should not be confused with the "best" merges done inside the
 % benchmark (those are using the real ground truth!!!)
 
-rez = merge_posthoc2(rez);
-benchmark_simulation(rez, fullfile(fpath, 'eMouseGroundTruth.mat'));
+% rez = merge_posthoc2(rez);
+% benchmark_simulation(rez, fullfile(fpath, 'eMouseGroundTruth.mat'));
 
 % save python results file for Phy
 mkdir postAutoMerge

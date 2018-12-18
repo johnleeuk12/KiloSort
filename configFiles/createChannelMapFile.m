@@ -14,20 +14,23 @@ save('C:\DATA\Spikes\20150601_chan32_4_900s\chanMap.mat', ...
 
 %%
 
-Nchannels = 32;
+Nchannels = 64;
 connected = true(Nchannels, 1);
 chanMap   = 1:Nchannels;
 chanMap0ind = chanMap - 1;
 
 xcoords   = repmat([1 2 3 4]', 1, Nchannels/4);
-xcoords   = xcoords(:);
+xcoords   = 20*xcoords(:);
 ycoords   = repmat(1:Nchannels/4, 4, 1);
-ycoords   = ycoords(:);
+ycoords(2,:) = ycoords(2,:)+1;
+ycoords(4,:) = ycoords(4,:)+1;
+ycoords   = 20*ycoords(:);
 kcoords   = ones(Nchannels,1); % grouping of channels (i.e. tetrode groups)
 
-fs = 25000; % sampling frequency
+%channelmap, from right to left, top to bottom
+fs = 30000; % sampling frequency
 
-save('C:\DATA\Spikes\Piroska\chanMap.mat', ...
+save('D:\DATA\Spikes\HarrisProbe\chanMap.mat', ...
     'chanMap','connected', 'xcoords', 'ycoords', 'kcoords', 'chanMap0ind', 'fs')
 %%
 

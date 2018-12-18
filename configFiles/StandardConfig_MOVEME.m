@@ -1,5 +1,5 @@
 ops.GPU                 = 1; % whether to run this code on an Nvidia GPU (much faster, mexGPUall first)		
-ops.parfor              = 0; % whether to use parfor to accelerate some parts of the algorithm		
+ops.parfor              = 1; % whether to use parfor to accelerate some parts of the algorithm		
 ops.verbose             = 1; % whether to print command line progress		
 ops.showfigures         = 1; % whether to plot figures during optimization		
 		
@@ -8,7 +8,7 @@ ops.fbinary             = 'C:\DATA\Spikes\Piroska\piroska_example_short.dat'; % 
 ops.fproc               = 'C:\DATA\Spikes\Piroska\temp_wh.dat'; % residual from RAM of preprocessed data		
 ops.root                = 'C:\DATA\Spikes\Piroska'; % 'openEphys' only: where raw files are		
 		
-ops.fs                  = 25000;        % sampling rate		(omit if already in chanMap file)
+ops.fs                  = 24414;        % sampling rate		(omit if already in chanMap file)
 ops.NchanTOT            = 32;           % total number of channels (omit if already in chanMap file)
 ops.Nchan               = 32;           % number of active channels (omit if already in chanMap file)
 ops.Nfilt               = 64;           % number of clusters to use (2-4 times more than Nchan, should be a multiple of 32)     		

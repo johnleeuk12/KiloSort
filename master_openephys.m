@@ -1,14 +1,10 @@
 % default options are in parenthesis after the comment
 
-fpath    = 'D:\DATA\OpenEphys\M44D\\2018-11-21_15-31-22'; % where on disk do you want the simulation? ideally and SSD...
-if ~exist(fpath, 'dir'); mkdir(fpath); end
-
-
 addpath(genpath('D:\CODE\GitHub\KiloSort')) % path to kilosort folder
 addpath(genpath('D:\CODE\GitHub\npy-matlab')) % path to npy-matlab scripts
 
-pathToYourConfigFile = 'C:\Users\John.Lee\Documents\GitHub\Harrisprobe'; % take from Github folder and put it somewhere else (together with the master_file)
-run(fullfile(pathToYourConfigFile, 'Harris_config.m'))
+pathToYourConfigFile = 'D:\CODE\Kilosort\configFiles'; % take from Github folder and put it somewhere else (together with the master_file)
+run(fullfile(pathToYourConfigFile, 'StandardConfig_MOVEME.m'))
 
 tic; % start timer
 %

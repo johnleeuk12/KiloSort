@@ -4,9 +4,9 @@ uproj = [];
 ops.nt0 	= getOr(ops, {'nt0'}, 61);
 
 
-if strcmp(ops.datatype , 'openEphys')
-   ops = convertOpenEphysToRawBInary(ops);  % convert data, only for OpenEphys
-end
+% if strcmp(ops.datatype , 'openEphys')
+%    ops = convertOpenEphysToRawBInary(ops);  % convert data, only for OpenEphys
+% end
 
 if ~isempty(ops.chanMap)
     if ischar(ops.chanMap)
@@ -64,7 +64,10 @@ end
 rez.connected   = connected;
 rez.ops.chanMap = chanMap;
 rez.ops.kcoords = kcoords; 
-
+% ops.fbinary = fullfile(ops.root, sprintf('%s.dat', ops.fbinary)); 
+if strcmp(ops.datatype , 'openEphys')
+ops.fbinary = fullfile(ops.root, ops.fbinary);
+end
 d = dir(ops.fbinary);
 ops.sampsToRead = floor(d.bytes/NchanTOT/2);
 
