@@ -147,6 +147,10 @@ while 1
     datr = filter(b1, a1, dataRAW);
     datr = flipud(datr);
     datr = filter(b1, a1, datr);
+    %Common median ref
+    Comm_med = median(datr,2);
+    datr = datr-Comm_med;
+    %Common median referencing, end
     datr = flipud(datr);
     
     switch ops.whitening
@@ -244,6 +248,10 @@ for ibatch = 1:Nbatch
         datr = filter(b1, a1, dataRAW);
         datr = flipud(datr);
         datr = filter(b1, a1, datr);
+        %Common median ref
+        Comm_med = median(datr,2);
+        datr = datr-Comm_med;
+        %Common median referencing, end
         datr = flipud(datr);
         
         datr = datr(ioffset + (1:NT),:);
